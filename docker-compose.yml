@@ -1,0 +1,33 @@
+version: '3.1'
+services:
+  frontend:
+    build: ./frontend/
+    command: npm run start
+    volumes:
+      - ./frontend/:/usr/app/
+      - ./frontend/node_modules
+    ports:
+      - '3000:3000'
+
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 840917
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  api:
+    build: ./backend/api/
+    command: npm run dev
+    volumes:
+      - ./backend/api/:/usr/app/
+      - /backend/api/node_modules
+    ports:
+      - '3333:3333'
+    depends_on:
+      - db

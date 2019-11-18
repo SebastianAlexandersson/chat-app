@@ -2,16 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import TextInput from '../Components/Form/TextInput.js'
 import SubmitButton from '../Components/Form/SubmitButton.js'
+import FormContainer from '../Components/Form/FormContainer.js'
 import { connect } from 'react-redux'
-
-const FormContainer = styled.div`
-  margin: auto;
-  width: 100%;
-  max-width: 600px;
-  padding: 2em 1.5em;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  background-color: #fff;
-`
+import { useHistory } from 'react-router-dom'
 
 const Header = styled.h1`
   text-align: center;
@@ -25,7 +18,7 @@ const mockLogin = async ({ username, password }) => {
       } else {
         reject('error')
       }
-    }, 1000);
+    }, 3000);
   })
 }
 
@@ -39,14 +32,17 @@ const Login = ({ login, dispatch }) => {
     isLoading,
   } = login
 
+  const history = useHistory()
+
   const handleSubmit = async e => {
     e.preventDefault()
     try {
-      dispatch({type: 'loading'})
+      dispatch({type: 'login-loading'})
       await mockLogin({ username, password })
-      dispatch({type: 'success'})
+      dispatch({type: 'login-success'})
+      history.push('/')
     } catch(error) {
-      dispatch({type: 'error', msg: 'Incorrect username or password'})
+      dispatch({type: 'login-error', msg: 'Incorrect username or password'})
     }
   }
 
@@ -60,19 +56,21 @@ const Login = ({ login, dispatch }) => {
         name='username'
         type='text'
         placeholder='Username'
-        onChange={e => dispatch({ type: 'input', field: 'username', value: e.currentTarget.value })}
+        onChange={e => dispatch({ type: 'login-input', field: 'username', value: e.currentTarget.value })}
       />
       <TextInput
         name='password'
         type='password'
         placeholder='Password'
-        onChange={e => dispatch({ type: 'input', field: 'password', value: e.currentTarget.value })}
+        onChange={e => dispatch({ type: 'login-input', field: 'password', value: e.currentTarget.value })}
       />
       <SubmitButton
         type='submit'
-        value={isLoading ? 'Logging in...' : 'Log in'}
         disabled={isLoading}
-      />
+        onClick={() => console.log('click')}
+      >
+        {isLoading ? 'Logging in...' : 'Log in'}
+      </SubmitButton>
       </form>
     </FormContainer>
   )

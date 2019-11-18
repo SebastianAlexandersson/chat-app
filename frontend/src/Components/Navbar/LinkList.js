@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const LinkList = styled.ul`
-  display: flex;
+  display: inline-flex;
   margin: 0;
   padding: 0;
 `

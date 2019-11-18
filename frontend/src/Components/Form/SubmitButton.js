@@ -1,16 +1,16 @@
 import styled from 'styled-components'
 
-const SubmitButton = styled.input`
+const SubmitButton = styled.button`
   width: 100%;
   border: none;
   padding: 1em 2em;
   font-weight: bold;
-  color: #fff;
+  color: ${props => props.disabled ? 'lightgray' : '#fff'};
   outline: none;
-  background-color: blue;
+  background-color: ${props => props.disabled ? 'gray' : 'blue'};
   font-size: 1em;
   border-radius: 5px;
-  cursor: pointer;
+  cursor: ${props => props.disabled ? 'wait' : 'pointer'};
 `
 
 export default SubmitButton

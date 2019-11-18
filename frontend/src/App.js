@@ -11,6 +11,7 @@ import About from './pages/About.js'
 import Login from './pages/Login.js'
 import { Provider } from 'react-redux'
 import store from './store/index.js'
+import Register from './pages/Register.js'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -40,14 +41,17 @@ const App = () => {
         <GlobalStyle />
         <Navbar />
         <Switch>
-          <Route exact path="/">
+          <Route exact path='/'>
             <Home />
           </Route>
-          <Route path="/about">
+          <Route path='/about'>
             <About />
           </Route>
-          <Route path="/login">
+          <Route path='/login'>
             <Login />
+          </Route>
+          <Route path='/register'>
+            <Register />
           </Route>
         </Switch>
       </Router>

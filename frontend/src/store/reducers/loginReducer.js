@@ -9,7 +9,7 @@ const initialState = {
 
 const loginReducer = (state = initialState, action) => {
   switch(action.type) {
-    case 'loading': {
+    case 'login-loading': {
       return {
         ...state,
         isError: false,
@@ -17,19 +17,19 @@ const loginReducer = (state = initialState, action) => {
         isLoading: true
       }
     }
-    case 'input': {
+    case 'login-input': {
       return {
         ...state,
         [action.field]: action.value
       }
     }
-    case 'logout': {
+    case 'login-logout': {
       return {
         ...state,
         isLoggedIn: false,
       }
     }
-    case 'success': {
+    case 'login-success': {
       return {
         ...state,
         isLoggedIn: true,
@@ -40,7 +40,7 @@ const loginReducer = (state = initialState, action) => {
         isLoading: false
       }
     }
-    case 'error': {
+    case 'login-error': {
       return {
         ...state,
         isError: true,
