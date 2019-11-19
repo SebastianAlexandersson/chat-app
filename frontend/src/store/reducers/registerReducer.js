@@ -8,17 +8,11 @@ const initialState = {
   errorMsg: '',
   isLoading: false,
   errorType: '',
-  isSuccess: false
+  isSuccess: false,
 }
 
 const registerReducer = (state = initialState, action) => {
   switch(action.type) {
-    case 'register-success': {
-      return {
-        ...state,
-        isSuccess: true
-      }
-    }
     case 'register-loading': {
       return {
         ...state,
@@ -43,11 +37,13 @@ const registerReducer = (state = initialState, action) => {
         passwordconfirm: '',
         isError: false,
         errorMsg: '',
-        isLoading: false
+        isLoading: false,
+        isSuccess: true
       }
     }
     case 'register-error': {
       return {
+        ...state,
         isError: true,
         errorMsg: action.errorMsg,
         errorType: action.errorType

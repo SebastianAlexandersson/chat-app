@@ -5,6 +5,7 @@ import SubmitButton from '../Components/Form/SubmitButton.js'
 import FormContainer from '../Components/Form/FormContainer.js'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import Spinner from '../Components/Spinner.js'
 
 const Header = styled.h1`
   text-align: center;
@@ -57,19 +58,20 @@ const Login = ({ login, dispatch }) => {
         type='text'
         placeholder='Username'
         onChange={e => dispatch({ type: 'login-input', field: 'username', value: e.currentTarget.value })}
+        value={username}
       />
       <TextInput
         name='password'
         type='password'
         placeholder='Password'
         onChange={e => dispatch({ type: 'login-input', field: 'password', value: e.currentTarget.value })}
+        value={password}
       />
       <SubmitButton
         type='submit'
         disabled={isLoading}
-        onClick={() => console.log('click')}
       >
-        {isLoading ? 'Logging in...' : 'Log in'}
+        {isLoading ? <Spinner /> : 'Log in'}
       </SubmitButton>
       </form>
     </FormContainer>

@@ -20,7 +20,7 @@ const Navbar = ({ login, dispatch }) => {
   const history = useHistory()
 
   const userLogin = () => history.push('/login')
-  const userLogout = () => dispatch({type: 'logout'})
+  const userLogout = () => dispatch({type: 'login-logout'})
   const userRegister = () => history.push('/register')
 
   return (
