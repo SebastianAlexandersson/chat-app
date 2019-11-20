@@ -9,7 +9,6 @@ const rotate360 = keyframes`
   }
 `
 const colorOne = 'white'
-const colorTwo = 'blue'
 
 const Spinner = styled.div`
   animation: ${rotate360} 1s linear infinite;

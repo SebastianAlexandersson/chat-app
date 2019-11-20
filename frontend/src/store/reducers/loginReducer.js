@@ -1,6 +1,6 @@
 const initialState = {
-  username: '',
-  password: '',
+  username: null,
+  password: null,
   isLoggedIn: false,
   isError: false,
   errorMsg: '',
@@ -13,7 +13,7 @@ const loginReducer = (state = initialState, action) => {
       return {
         ...state,
         isError: false,
-        errorMsg: '',
+        errorMsg: null,
         isLoading: true
       }
     }

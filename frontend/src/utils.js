@@ -1,5 +1,6 @@
+export let timeout
+
 const debounce = (time, callback) => {
-  let timeout
   
   clearTimeout(timeout)
 

@@ -5,9 +5,8 @@ const initialState = {
   password: '',
   passwordconfirm: '',
   isError: false,
-  errorMsg: '',
+  msg: '',
   isLoading: false,
-  errorType: '',
   isSuccess: false,
 }
 
@@ -17,7 +16,7 @@ const registerReducer = (state = initialState, action) => {
       return {
         ...state,
         isError: false,
-        errorMsg: '',
+        msg: '',
         isLoading: true
       }
     }
@@ -36,7 +35,7 @@ const registerReducer = (state = initialState, action) => {
         password: '',
         passwordconfirm: '',
         isError: false,
-        errorMsg: '',
+        msg: action.msg,
         isLoading: false,
         isSuccess: true
       }
@@ -45,8 +44,10 @@ const registerReducer = (state = initialState, action) => {
       return {
         ...state,
         isError: true,
-        errorMsg: action.errorMsg,
-        errorType: action.errorType
+        msg: action.msg,
+        password: '',
+        passwordconfirm: '',
+        isLoading: false,
       }
     }
     default:
