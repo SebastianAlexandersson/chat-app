@@ -10,13 +10,13 @@ export const Label = styled.label`
 
 const TextInput = styled.input`
   border: 1px solid gray;
-  border-color: ${props => props.valid === true ? 'green' : props.valid === null ? 'none' : 'red'};
+  border-color: ${props => props.valid === true ? 'green' : props.valid === null ? 'none' : props.noValidation ? 'none' : 'red'};
   padding: 1em;
   margin: 1em 0;
   width: 100%;
   font-size: 1em;
   &:focus {
-    outline: ${props => props.valid === null ? '1px solid blue' : 'none'};
+    outline: ${props => props.valid === null || props.noValidation ? '1px solid blue' : 'none'};
   }
 `
 export default TextInput

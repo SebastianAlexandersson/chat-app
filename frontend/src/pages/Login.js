@@ -1,77 +1,103 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useEffect } from 'react'
 import TextInput from '../Components/Form/TextInput.js'
 import SubmitButton from '../Components/Form/SubmitButton.js'
 import FormContainer from '../Components/Form/FormContainer.js'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import Spinner from '../Components/Spinner.js'
+import Message from '../Components/Message.js'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const Header = styled.h1`
-  text-align: center;
-`
-
-const mockLogin = async ({ username, password }) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (username === 'sebbe' && password === 'sebbe') {
-        resolve('logged in !')
-      } else {
-        reject('error')
-      }
-    }, 3000);
-  })
-}
-
-const Login = ({ login, dispatch }) => {
+const Login = ({ login, message, dispatch }) => {
   const {
-    isLoggedIn,
-    isError,
     username,
     password,
-    errorMsg,
     isLoading,
   } = login
 
+  const {
+    isError,
+    isSuccess,
+    msg
+  } = message
+
   const history = useHistory()
+
+  useEffect(() => {
+    return () => {
+      dispatch({ type: 'message-reset' })
+      dispatch({ type: 'register-reset' })
+      dispatch({ type: 'validate-reset' })
+    }
+  }, [dispatch])
 
   const handleSubmit = async e => {
     e.preventDefault()
     try {
-      dispatch({type: 'login-loading'})
-      await mockLogin({ username, password })
-      dispatch({type: 'login-success'})
-      history.push('/')
+      dispatch( { type: 'message-reset' })
+      dispatch({ type: 'login-loading', value: true })
+      const res = await fetch('http://localhost:3333/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({username, password})
+      })
+      if(res.status === 200) {
+        dispatch({ type: 'message-success', msg: 'Inloggning lyckades.' })
+        dispatch({ type: 'login-success' })
+        dispatch({ type: 'message-login' })
+        setTimeout(() => {
+          history.push('/')
+          dispatch({ type: 'message-reset' })
+        }, 1000)
+        return
+      } else if(res.status === 401) {
+        dispatch({ type: 'login-error' })
+        dispatch({ type: 'message-error', msg: 'Felaktigt användarnamn eller lösenord.'})
+        return
+      } else if(res.status === 400) {
+        dispatch({ type: 'login-error' })
+        dispatch({ type: 'message-error', msg: 'Saknas användarnamn och/eller lösenord.'})
+        return
+      } else {
+        throw Error
+      }
     } catch(error) {
-      dispatch({type: 'login-error', msg: 'Incorrect username or password'})
+      dispatch({ type: 'login-error' })
+      dispatch({ type: 'message-error', msg: 'Nånting gick fel...' })
     }
   }
 
   return (
     <FormContainer>
-      <Header>Login</Header>
-      {isLoggedIn && <span>Congrats!</span>}
-      {isError && <span>{errorMsg}</span>}
+      <h1 style={{ textAlign: 'center' }}>Logga in</h1>
+      <Message
+        error={isError}
+        success={isSuccess}
+        msg={msg}
+      />
       <form action='#' onSubmit={handleSubmit}>
         <TextInput
         name='username'
         type='text'
-        placeholder='Username'
+        placeholder='Användarnamn'
         onChange={e => dispatch({ type: 'login-input', field: 'username', value: e.currentTarget.value })}
         value={username}
+        noValidation={true}
       />
       <TextInput
         name='password'
         type='password'
-        placeholder='Password'
+        placeholder='Lösenord'
         onChange={e => dispatch({ type: 'login-input', field: 'password', value: e.currentTarget.value })}
         value={password}
+        noValidation={true}
       />
       <SubmitButton
         type='submit'
         disabled={isLoading}
       >
-        {isLoading ? <Spinner /> : 'Log in'}
+        {isLoading ? <><FontAwesomeIcon icon={['fas', 'spinner']} spin /> Logga in</> : 'Logga in'}
       </SubmitButton>
       </form>
     </FormContainer>
@@ -80,7 +106,8 @@ const Login = ({ login, dispatch }) => {
 
 const mapStateToProps = state => {
   return {
-    login: state.login
+    login: state.login,
+    message: state.message
   }
 }
 

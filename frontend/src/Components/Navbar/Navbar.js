@@ -9,38 +9,36 @@ import { useHistory } from 'react-router-dom'
 const Nav = styled.nav`
   width: 100%;
   background-color: blue;
-  margin-bottom: 1em;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `
 
-const Navbar = ({ login, dispatch }) => {
-  const { isLoggedIn } = login
+const Navbar = ({ message, dispatch }) => {
   const history = useHistory()
 
   const userLogin = () => history.push('/login')
-  const userLogout = () => dispatch({type: 'login-logout'})
+  const userLogout = () => dispatch({ type: 'message-logout' })
   const userRegister = () => history.push('/register')
 
   return (
     <Nav>
       <LinkList>
-        <NavLink to='/' name='Home' />
-        <NavLink to='/about' name='About' />
+        <NavLink to='/' name='Hem' />
+        <NavLink to='/about' name='Om' />
       </LinkList>
       <div>
-        {!isLoggedIn && <NavButton onClick={userRegister}>Register</NavButton>}
+        {!message.isLoggedIn && <NavButton onClick={userRegister}>Registrera</NavButton>}
         <NavButton
-        onClick={isLoggedIn ? userLogout : userLogin}
+        onClick={message.isLoggedIn ? userLogout : userLogin}
       >
-        {isLoggedIn ? 'Logout' : 'Login'}
+        {message.isLoggedIn ? 'Logga ut' : 'Logga in'}
       </NavButton>
       </div>
     </Nav>
   )
 }
 
-const mapStateToProps = state => ({ login: state.login })
+const mapStateToProps = state => ({ message: state.message })
 
 export default connect(mapStateToProps)(Navbar)

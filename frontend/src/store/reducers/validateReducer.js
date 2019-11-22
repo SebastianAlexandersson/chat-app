@@ -4,7 +4,6 @@ const initalState = {
     lastnameIsValid: null,
     passwordIsValid: null,
     passwordconfirmIsValid: null,
-    emailIsAvaliable: true,
   }
 
   const validateReducer = (state = initalState, action) => {
@@ -33,12 +32,6 @@ const initalState = {
           passwordconfirmIsValid: action.isValid
         }
       }
-      case 'validate-email-is-avaliable': {
-        return {
-          ...state,
-          emailIsAvaliable: action.value
-        }
-      }
       case 'validate-reset': {
         return {
           ...state,
@@ -47,7 +40,6 @@ const initalState = {
           lastnameIsValid: null,
           passwordIsValid: null,
           passwordconfirmIsValid: null,
-          emailIsAvaliable: true,
         }
       }
       default:

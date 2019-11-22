@@ -1,10 +1,11 @@
 const mariadb = require('mariadb');
-const pool = mariadb.createPool({
-     host: 'db', 
-     user:'root', 
-     password: '840917',
-     database: 'studentprojekt',
-     connectionLimit: 5
-});
+const db = () => {
+	return mariadb.createConnection({
+		host: 'db', 
+		user:'root', 
+		password: '840917',
+		database: 'studentprojekt',
+	});
+}
 
-module.exports = pool
+module.exports = db

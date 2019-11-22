@@ -12,6 +12,20 @@ import Login from './pages/Login.js'
 import { Provider } from 'react-redux'
 import store from './store/index.js'
 import Register from './pages/Register.js'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faJsSquare } from '@fortawesome/free-brands-svg-icons'
+import { faCircle, faSquare, faSpinner, faExclamationCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons'
+
+library.add(
+  faJsSquare,
+  faCircle,
+  faSquare,
+  faEnvelope,
+  faSpinner,
+  faExclamationCircle,
+  faCheckCircle,
+  )
 
 const GlobalStyle = createGlobalStyle`
   * {

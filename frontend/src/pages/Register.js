@@ -1,26 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import TextInput, { Label } from '../Components/Form/TextInput.js'
 import SubmitButton from '../Components/Form/SubmitButton.js'
 import FormContainer from '../Components/Form/FormContainer.js'
 import InputContainer from '../Components/Form/InputContainer.js'
 import { connect } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 import debounce, { timeout } from '../utils.js'
-import Spinner from '../Components/Spinner.js'
 import Message from '../Components/Message.js'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Header = styled.h1`
   text-align: center;
 `
 
-const Register = ({ register, validate, isFormValid, dispatch }) => {
+const Register = 
+  ({ 
+    register,
+    validate, 
+    message,
+    isFormValid,
+    dispatch 
+  }) => {
 
   const {
-    isError,
-    msg,
     isLoading,
-    isSuccess,
     password,
     passwordconfirm,
     firstname,
@@ -34,55 +38,71 @@ const Register = ({ register, validate, isFormValid, dispatch }) => {
     lastnameIsValid,
     passwordIsValid,
     passwordconfirmIsValid,
-    emailIsAvaliable
   } = validate
+
+  const {
+    isError,
+    isSuccess,
+    msg,
+  } = message
 
   const history = useHistory()
 
-  const mockRegister = (data) => {
-    const { password } = data
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if(password === '12345678') {
-          reject('error!')
-        }
-        resolve('success!')
-      }, 3000)
-    })
-  }
+  useEffect(() => {
+    return () => {
+      dispatch({ type: 'message-reset' })
+      dispatch({ type: 'register-reset' })
+      dispatch({ type: 'validate-reset' })
+    }
+  }, [dispatch])
 
   const handleSubmit = async e => {
     e.preventDefault()
-    dispatch({ type: 'register-loading'})
+    dispatch({ type: 'register-loading', value: true})
     try {
-      await mockRegister({
-        email,
-        firstname,
-        lastname,
-        password
+       const res = await fetch('http://localhost:3333/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, firstname, lastname, password, passwordconfirm })
       })
-      dispatch({ type: 'register-success', msg: 'Success!' })
+      if(res.status !== 200) {
+        throw Error(res.status)
+      }
+      dispatch({ type: 'message-success', msg: 'Registrering lyckades.' })
+      dispatch({ type: 'register-reset' })
       dispatch({ type: 'validate-reset' })
-    } catch(error) {
-      console.log(error)
-      dispatch({ type: 'register-error', msg: 'Error!' })
-    }
-  }
-
-  const mockCheckIfEmailTaken = email => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if(email === 'sebbe@iths.se') {
-          resolve('success!')
+      debounce(1000, () => history.push('/'))
+      } catch(error) {
+        if(Number(error.message) === 400) {
+          dispatch({ type: 'message-error', msg: 'Validering misslyckades.' })
+          dispatch({ type: 'register-reset '})
+          dispatch({ type: 'validate-reset '})
+        } else if(Number(error.message) === 401) {
+          dispatch({ type: 'message-error', msg: 'E-mail är redan registrerad.' })
+          dispatch({ type: 'register-input', field: 'email', value: '' })
+          dispatch({ type: 'register-input', field: 'password', value: '' })
+          dispatch({ type: 'register-input', field: 'passwordconfirm', value: '' })
+          dispatch({ type: 'validate-email', isValid: null })
+          dispatch({ type: 'validate-password', isValid: null })
+          dispatch({ type: 'validate-passwordconfirm', isValid: null })
+          dispatch({ type: 'register-loading', value: false })
+        } else if(Number(error.message) === 500) {
+          dispatch({ type: 'message-error', msg: 'Något gick fel med servern...' })
+          dispatch({ type: 'register-reset '})
+          dispatch({ type: 'validate-reset '})
         } else {
-          reject('email is taken')
+          dispatch({ type: 'message-error', msg: 'Något gick fel... någonstans...' })
+          dispatch({ type: 'register-reset '})
+          dispatch({ type: 'validate-reset '})
         }
-      }, 2000);
-    })
+      }
   }
 
   const validateEmail = async (email, blur = false) => {
     const isValid = /^\w+@iths.se$/i.test(email)
+    dispatch({ type: 'register-input', field: 'email', value: email })
     if(email.length === 0) {
       clearTimeout(timeout)
       dispatch({ type: 'validate-email', isValid: null })
@@ -90,21 +110,9 @@ const Register = ({ register, validate, isFormValid, dispatch }) => {
       clearTimeout(timeout)
       dispatch({ type: 'validate-email', isValid: isValid })
     } else {
-      debounce(2000, () => {
+      debounce(1000, () => {
         dispatch({ type: 'validate-email', isValid: isValid })
-        dispatch({ type: 'validate-email-is-avaliable', value: true })
       })
-    }
-    dispatch({ type: 'register-input', field: 'email', value: email })
-    if(isValid) {
-      try {
-        await mockCheckIfEmailTaken(email)
-        dispatch({ type: 'validate-email-is-avaliable', value: true })
-      } catch(error) {
-        clearTimeout(timeout)
-        dispatch({ type: 'validate-email-is-avaliable', value: false })
-        dispatch({ type: 'validate-email', isValid: false })
-      }
     }
   }
 
@@ -117,7 +125,7 @@ const Register = ({ register, validate, isFormValid, dispatch }) => {
       clearTimeout(timeout)
       dispatch({ type: 'validate-name', isValid: isValid, field: field })
     } else {
-      debounce(2000, () => dispatch({ type: 'validate-name', isValid: isValid, field: field }))
+      debounce(1000, () => dispatch({ type: 'validate-name', isValid: isValid, field: field }))
     }
     dispatch({ type: 'register-input', field: field, value: name })
   }
@@ -131,7 +139,7 @@ const Register = ({ register, validate, isFormValid, dispatch }) => {
       clearTimeout(timeout)
       dispatch({ type: 'validate-password', isValid: isValid })
     } else {
-      debounce(2000, () => dispatch({ type: 'validate-password', isValid: isValid }))
+      debounce(1000, () => dispatch({ type: 'validate-password', isValid: isValid }))
     }
     dispatch({ type: 'register-input', field: 'password', value: pass })
   }
@@ -140,11 +148,11 @@ const Register = ({ register, validate, isFormValid, dispatch }) => {
     const isValid = pass === password
     if(pass.length === 0) {
       clearTimeout(timeout)
-      dispatch({ type: 'validate-passwordconfirm', isValid: null})
+      dispatch({ type: 'validate-passwordconfirm', isValid: null })
     } else if(pass.length >= 8) {
-      debounce(500, () => dispatch({ type: 'validate-passwordconfirm', isValid: isValid}))
+      debounce(500, () => dispatch({ type: 'validate-passwordconfirm', isValid: isValid }))
     }
-    dispatch({ type: 'register-input', field: 'passwordconfirm', value: pass})
+    dispatch({ type: 'register-input', field: 'passwordconfirm', value: pass })
   }
 
   return (
@@ -164,8 +172,7 @@ const Register = ({ register, validate, isFormValid, dispatch }) => {
             valid={emailIsValid}
             onBlur={e => validateEmail(e.currentTarget.value, true)}
           />
-          {!emailIsValid && emailIsAvaliable && emailIsValid !== null && <Label htmlFor='email'>Ange giltlig e-postadress som slutar på @iths.se</Label>}
-          {!emailIsAvaliable && !emailIsValid && emailIsValid !== null && <Label htmlFor='email'>E-mail är redan registrerad</Label>}
+          {!emailIsValid && emailIsValid !== null && <Label htmlFor='email'>Ange giltlig e-postadress som slutar på @iths.se</Label>}
         </InputContainer>
         <InputContainer>
           <InputContainer halfWidth>
@@ -224,7 +231,7 @@ const Register = ({ register, validate, isFormValid, dispatch }) => {
           type='submit'
           disabled={isLoading || !isFormValid }
         >
-          {isLoading ? <Spinner /> : 'Register'}
+          {isLoading ? <><FontAwesomeIcon icon={['fas', 'spinner']} /> Registrera</> : 'Registrera'}
         </SubmitButton>
       </form>
     </FormContainer>
@@ -243,6 +250,7 @@ const mapStateToProps = state => {
   return {
     register: state.register,
     validate: state.validate,
+    message: state.message,
     isFormValid: isFormValid(state)
   }
 }
