@@ -4,6 +4,8 @@ services:
     build: ./frontend/nginx/
     ports:
       - '9000:80'
+    depends_on:
+      - api_prod
 
   db:
     image: mariadb
