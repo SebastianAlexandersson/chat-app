@@ -15,10 +15,6 @@ app.use(helmet())
 
 app.use(routes)
 
-app.get('/', (req, res) => res.send('hello from api'))
-
-app.get('/api/login', (req, res) => res.send('helloooooooooooooo'))
-
 app.use((err, req, res, next) => {
   handleError(err, res)
 })
