@@ -24,12 +24,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 840917
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - '8080'
-
   api_prod:
     build: ./backend/api/
     command: npm run production
