@@ -27,7 +27,5 @@ services:
   api_prod:
     build: ./backend/api/
     command: npm run production
-    ports:
-      - '3333'
     depends_on:
       - db
