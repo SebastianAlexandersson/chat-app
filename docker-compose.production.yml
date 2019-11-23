@@ -22,8 +22,8 @@ services:
     image: mariadb
     restart: always
     environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
-      MYSQL_USER: 'studentprojekt'
+      MYSQL_ROOT_PASSWORD: 'asdf123!##'
+      MYSQL_USER: 'sebbe'
       MYSQL_PASSWORD: 'asdf123!##'
       MYSQL_DATABASE: 'studentprojekt'
 
