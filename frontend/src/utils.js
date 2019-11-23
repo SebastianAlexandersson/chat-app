@@ -9,6 +9,6 @@ const debounce = (time, callback) => {
   }, time);
 }
 
-export const API_HOST = process.env.NODE_ENV === 'production' ? 'https://sebbe.dev/studenprojekt/api' : 'http://localhost:3333'
+export const API_HOST = process.env.NODE_ENV === 'production' ? 'https://sebbe.dev/studentprojekt/api' : 'http://localhost:3333'
 
 export default debounce
