@@ -26,11 +26,21 @@ services:
       MYSQL_USER: 'sebbe'
       MYSQL_PASSWORD: 'asdf123'
       MYSQL_DATABASE: 'studentprojekt'
+    volumes:
+      - ./db/:/var/lib/mysql
 
   api_prod:
     build: ./backend/api/
     command: npm run production
     ports:
       - '3333'
+    depends_on:
+      - db
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
     depends_on:
       - db
