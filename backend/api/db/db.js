@@ -3,7 +3,7 @@ const db = () => {
 	return mariadb.createConnection({
 		host: 'db', 
 		user:'sebbe', 
-		password: 'asdf123!##',
+		password: 'asdf123',
 		database: 'studentprojekt',
 	});
 }
