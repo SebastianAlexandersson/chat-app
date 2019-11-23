@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import debounce, { timeout } from '../utils.js'
 import Message from '../Components/Message.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { API_HOST } from '../utils.js'
 
 const Header = styled.h1`
   text-align: center;
@@ -60,7 +61,7 @@ const Register =
     e.preventDefault()
     dispatch({ type: 'register-loading', value: true})
     try {
-       const res = await fetch('http://localhost:3333/register', {
+       const res = await fetch(`${API_HOST}/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
