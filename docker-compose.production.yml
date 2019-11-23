@@ -1,11 +1,19 @@
 version: '3.1'
 services:
+
+  proxy:
+    build: ./proxy/
+    ports:
+      - '9000:80'
+    restart: always
+
   frontend_prod:
     build: ./frontend/nginx/
     ports:
-      - '9000:80'
+      - '3000'
     depends_on:
       - api_prod
+    restart: always
 
   db:
     image: mariadb
@@ -17,7 +25,7 @@ services:
     image: adminer
     restart: always
     ports:
-      - '8080:8080'
+      - '8080'
 
   api_prod:
     build: ./backend/api/
