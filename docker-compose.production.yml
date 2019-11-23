@@ -6,6 +6,9 @@ services:
     ports:
       - '9000:80'
     restart: always
+    depends_on:
+      - frontend_prod
+      - api_prod
 
   frontend_prod:
     build: ./frontend/nginx/
