@@ -1,0 +1,26 @@
+version: '3.1'
+services:
+  frontend_prod:
+    build: ./frontend/nginx/
+    ports:
+      - '9000:80'
+
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 840917
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - '8080:8080'
+
+  api_prod:
+    build: ./backend/api/
+    command: npm run production
+    ports:
+      - '3333'
+    depends_on:
+      - db
