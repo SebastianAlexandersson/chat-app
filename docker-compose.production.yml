@@ -9,6 +9,7 @@ services:
     depends_on:
       - frontend_prod
       - api_prod
+      - adminer
 
   frontend_prod:
     build: ./frontend/nginx/
@@ -21,8 +22,6 @@ services:
   db:
     image: mariadb
     restart: always
-    ports:
-      - '3306:3306'
     environment:
       MYSQL_ROOT_PASSWORD: 'asdf123'
       MYSQL_USER: 'sebbe'
@@ -38,3 +37,11 @@ services:
       - '3333'
     depends_on:
       - db
+
+  adminer:
+  image: adminer
+  restart: always
+  ports:
+    - '5555:5555'
+  depends_on:
+    - db
