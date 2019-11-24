@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const uuid = require('uuid/v4')
-const db = require('../db/db.js')
+const db = require('../database/db.js')
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 const { StatusError, asyncWrapper } = require('../utils.js')
