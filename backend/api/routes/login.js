@@ -3,7 +3,6 @@ const router = express.Router()
 const db = require('../db/db.js')
 const bcrypt = require('bcrypt')
 const { StatusError, asyncWrapper } = require('../utils.js')
-const mailer = require('../mailer')
 
 router.post('/', asyncWrapper(async (req, res) => {
 
@@ -22,7 +21,6 @@ router.post('/', asyncWrapper(async (req, res) => {
       if(err) {
         throw new StatusError(500, 'Server error')
       } else if(match) {
-        mailer('fortheloveofgood@gmail.com', 'TESTAR', 'HEJ HOP HOPP')
         res.status(200)
         .json('OK')
       } else {

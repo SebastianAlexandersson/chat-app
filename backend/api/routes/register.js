@@ -5,6 +5,7 @@ const db = require('../db/db.js')
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 const { StatusError, asyncWrapper } = require('../utils.js')
+const mailer = require('../mailer')
 
 const validateRegisterInput = input => {
   return /^\w+@iths.se$/i.test(input.email)

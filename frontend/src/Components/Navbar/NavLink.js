@@ -17,8 +17,9 @@ const StyledNavLink = styled(Link)`
 `
 
 const NavLink = ({ to, name }) => {
+  const href = '/studentprojekt' + to
   return (
-    <StyledNavLink to={to}>{name}</StyledNavLink>
+    <StyledNavLink to={href}>{name}</StyledNavLink>
   )
 }
 
