@@ -59,7 +59,7 @@ router.post('/', asyncWrapper(async (req, res) => {
   .json('OK')
 }))
 
-app.post('/:id', asyncWrapper(async (req, res) => {
+router.post('/:id', asyncWrapper(async (req, res) => {
 
   const registrationId = req.params.id
   
