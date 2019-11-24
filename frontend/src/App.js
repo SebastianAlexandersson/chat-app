@@ -55,16 +55,16 @@ const App = () => {
         <GlobalStyle />
         <Navbar />
         <Switch>
-          <Route exact path='/'>
+          <Route exact path='/studentprojekt'>
             <Home />
           </Route>
-          <Route path='/about'>
+          <Route path='/studentprojekt/about'>
             <About />
           </Route>
-          <Route path='/login'>
+          <Route path='/studentprojekt/login'>
             <Login />
           </Route>
-          <Route path='/register'>
+          <Route path='/studentprojekt/register'>
             <Register />
           </Route>
         </Switch>
