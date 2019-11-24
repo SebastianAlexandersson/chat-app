@@ -37,4 +37,4 @@ services:
       MYSQL_DATABASE: studentprojekt
       MYSQL_ROOT_PASSWORD: asdf123
     ports:
-      '3306:3306'
+      - '3306:3306'
