@@ -3,7 +3,7 @@ const router = express.Router()
 const db = require('../db/db.js')
 const bcrypt = require('bcrypt')
 const { StatusError, asyncWrapper } = require('../utils.js')
-const mailer = require('mailer')
+const mailer = require('../mailer')
 
 router.post('/', asyncWrapper(async (req, res) => {
 
