@@ -87,7 +87,7 @@ router.get('/:id', asyncWrapper(async (req, res) => {
 
   const now = new Date().getTime()
 
-  if(expires_on >= now) {
+  if(expires_on <= now) {
     await conn.end()
     throw new StatusError(403, 'Expired registration id')
   }
