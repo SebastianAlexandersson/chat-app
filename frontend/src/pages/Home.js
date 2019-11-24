@@ -5,7 +5,7 @@ import ProjectPost from '../Components/ProjectPost/ProjectPost.js'
 const Home = () => {
   return (
     <Container>
-      <h1>Studentprojekt TESTARASFSAF</h1>
+      <h1>Studentprojekt</h1>
       <ProjectPost
         header='Mitt projekt!'
         poster='Sebastian Alexandersson'
