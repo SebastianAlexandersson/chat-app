@@ -40,9 +40,20 @@ router.post('/', asyncWrapper(async (req, res) => {
 
   const hash = await bcrypt.hash(password, saltRounds)
 
-  await conn.query('INSERT INTO users (userid, first_name, last_name, email, password) VALUES (?,?,?,?,?)',
-    [uuid(), firstname, lastname, email, hash])
+  const expiresOn = new Date().getTime() + 86400000
+
+  const registrationId = uuid()
+
+  await conn.query('INSERT INTO register_confirm (userid, first_name, last_name, email, password, expires_on, registration_id) VALUES (?,?,?,?,?,?,?)',
+    [uuid(), firstname, lastname, email, hash, expiresOn, registrationId])
   await conn.end()
+
+  await mailer(
+    'fortheloveofgood@gmail.com',
+    'Bekräfta registrering',
+    null, 
+    `<p>Följ länken för att bekräfta din registrering: <br><a href="https://sebbe.dev/studentprojekt/register?id=${registrationId}"<a></p>`
+    )
 
   res.status(200)
   .json('OK')
