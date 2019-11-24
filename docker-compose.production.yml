@@ -27,8 +27,6 @@ services:
       MYSQL_USER: 'sebbe'
       MYSQL_PASSWORD: 'asdf123'
       MYSQL_DATABASE: 'studentprojekt'
-    volumes:
-      - ./db/:/var/lib/mysql
 
   api_prod:
     build: ./backend/api/
