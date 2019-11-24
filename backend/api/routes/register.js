@@ -83,7 +83,7 @@ app.post('/:id', asyncWrapper(async (req, res) => {
     last_name,
     password,
     expires_on,
-  }
+  } = rows[0]
 
   const now = new Date().getTime()
 
