@@ -93,7 +93,7 @@ router.get('/:id', asyncWrapper(async (req, res) => {
   }
 
   await conn.query('INSERT INTO users (userid, first_name, last_name, email, password) VALUES (?,?,?,?,?)',
-    [userid, firstname, lastname, email, password])
+    [userid, first_name, last_name, email, password])
 
   await conn.query('DELETE FROM register_confirm WHERE registration_id=?', [registrationId])
 
