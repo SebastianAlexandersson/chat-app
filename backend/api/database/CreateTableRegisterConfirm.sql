@@ -4,6 +4,6 @@ email TEXT,
 first_name TEXT,
 last_name TEXT,
 password TEXT,
-expires_on INT,
+expires_on BIGINT,
 registration_id TEXT
 ) ENGINE=INNODB;
