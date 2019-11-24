@@ -52,11 +52,56 @@ router.post('/', asyncWrapper(async (req, res) => {
     'fortheloveofgood@gmail.com',
     'Bekräfta registrering',
     null, 
-    `<b>Följ länken för att bekräfta din registrering: </b><a href="https://sebbe.dev/studentprojekt/register?id=${registrationId}">https://sebbe.dev/studentprojekt/register?id=${registrationId}</a></p>`
+    `<b>Följ länken för att bekräfta din registrering: </b><a href="https://sebbe.dev/studentprojekt/api/register/${registrationId}">https://sebbe.dev/studentprojekt/register?id=${registrationId}</a></p>`
     )
 
   res.status(200)
   .json('OK')
+}))
+
+app.post('/:id', asyncWrapper(async (req, res) => {
+
+  const registrationId = req.params.id
+  
+  if(!registrationId) {
+    throw new StatusError(400, 'Bad input')
+  }
+
+  const conn = await db()
+
+  const rows = await conn.query('SELECT * FROM register_confirm WHERE registration_id=?', [registrationId])
+
+  if(rows.length === 0) {
+    await conn.end()
+    throw new StatusError(403, 'Invalid registration id')
+  }
+
+  const {
+    userid,
+    email,
+    first_name,
+    last_name,
+    password,
+    expires_on,
+  }
+
+  const now = new Date().getTime()
+
+  if(expires_on >= now) {
+    await conn.end()
+    throw new StatusError(403, 'Expired registration id')
+  }
+
+  await conn.query('INSERT INTO users (userid, first_name, last_name, email, password) VALUES (?,?,?,?,?)',
+    [userid, firstname, lastname, email, password])
+
+  await conn.query('DELETE FROM register_confirm WHERE registration_id=?', [registrationId])
+
+  await conn.end()
+
+  res.status(200)
+  .send('Registrering lyckades. Skickar vidare...<script>setTimeout(() => location.assign("https://sebbe.dev/studentprojekt/login"), 2000)</script>')
+
 }))
 
 module.exports = router
