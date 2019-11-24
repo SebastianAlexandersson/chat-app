@@ -27,6 +27,8 @@ services:
       MYSQL_USER: 'sebbe'
       MYSQL_PASSWORD: 'asdf123'
       MYSQL_DATABASE: 'studentprojekt'
+    ports:
+      - '3306:3306'
 
   api_prod:
     build: ./backend/api/
@@ -36,10 +38,3 @@ services:
     depends_on:
       - db
 
-  adminer:
-    image: adminer
-    restart: always
-    depends_on:
-      - db
-    ports:
-      - 8080:8080
