@@ -39,9 +39,9 @@ services:
       - db
 
   adminer:
-  image: adminer
-  restart: always
-  ports:
-    - '5555:5555'
-  depends_on:
-    - db
+    image: adminer
+    restart: always
+    ports:
+      - '5555:5555'
+    depends_on:
+      - db
