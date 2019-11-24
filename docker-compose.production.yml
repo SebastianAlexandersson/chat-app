@@ -28,7 +28,7 @@ services:
       - db
 
   db:
-    image: mariadb
+    build: ./backend/api/db/
     restart: always
     environment:
       MYSQL_USER: sebbe
