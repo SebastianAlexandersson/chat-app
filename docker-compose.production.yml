@@ -28,7 +28,7 @@ services:
       - db
 
   db:
-    build: ./backend/api/db/
+    build: ./backend/api/database/
     restart: always
     environment:
       MYSQL_USER: sebbe
