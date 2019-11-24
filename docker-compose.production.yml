@@ -33,6 +33,7 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: sebbe@sebbe.dev
       PGADMIN_DEFAULT_PASSWORD: asdf123
+      PGADMIN_LISTEN_PORT: 443
 
   postgres:
     image: postgres
