@@ -51,8 +51,8 @@ router.post('/', asyncWrapper(async (req, res) => {
   await mailer(
     'fortheloveofgood@gmail.com',
     'Bekräfta registrering',
-    'Följ länken för att bekräfta din registrering: ', 
-    `<a href="https://sebbe.dev/studentprojekt/register?id=${registrationId}">https://sebbe.dev/studentprojekt/register?id=${registrationId}</a></p>`
+    null, 
+    `<b>Följ länken för att bekräfta din registrering: </b><a href="https://sebbe.dev/studentprojekt/register?id=${registrationId}">https://sebbe.dev/studentprojekt/register?id=${registrationId}</a></p>`
     )
 
   res.status(200)
