@@ -28,15 +28,13 @@ services:
     depends_on:
       - postgres
 
-  pg_admin:
-    image: 'dpage/pgadmin4'
-    environment:
-      PGADMIN_DEFAULT_EMAIL: sebbe@sebbe.dev
-      PGADMIN_DEFAULT_PASSWORD: asdf123
-      PGADMIN_LISTEN_PORT: 443
-
-  postgres:
-    image: postgres
+  db:
+    image: mariadb
     restart: always
     environment:
-      POSTGRES_PASSWORD: asdf123
+      MYSQL_USER: sebbe
+      MYSQL_PASSWORD: asdf123
+      MYSQL_DATABASE: studentprojekt
+      MYSQL_ROOT_PASSWORD: asdf123
+    ports:
+      '3306:3306'
