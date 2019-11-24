@@ -15,11 +15,12 @@ const Nav = styled.nav`
 `
 
 const Navbar = ({ message, dispatch }) => {
+  const public_url = process.env.PUBLIC_URL
   const history = useHistory()
 
-  const userLogin = () => history.push('/login')
+  const userLogin = () => history.push(public_url + '/login')
   const userLogout = () => dispatch({ type: 'message-logout' })
-  const userRegister = () => history.push('/register')
+  const userRegister = () => history.push(public_url + '/register')
 
   return (
     <Nav>
