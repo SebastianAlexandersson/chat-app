@@ -17,7 +17,7 @@ const StyledNavLink = styled(Link)`
 `
 
 const NavLink = ({ to, name }) => {
-  const href = '/studentprojekt' + to
+  const href = process.env.PUBLIC_URL + to
   return (
     <StyledNavLink to={href}>{name}</StyledNavLink>
   )

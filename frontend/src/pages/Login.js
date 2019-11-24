@@ -71,7 +71,7 @@ const Login = ({ login, message, dispatch }) => {
 
   return (
     <FormContainer>
-      <h1 style={{ textAlign: 'center' }}>Logga in TEST</h1>
+      <h1 style={{ textAlign: 'center' }}>Logga in</h1>
       <Message
         error={isError}
         success={isSuccess}
