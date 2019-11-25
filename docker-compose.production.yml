@@ -8,7 +8,7 @@ services:
     restart: always
     depends_on:
       - frontend
-      - api_prod
+      - api
 
   frontend:
     build: ./frontend/nginx/
