@@ -6,22 +6,21 @@ services:
     command: npm run start
     volumes:
       - ./frontend/:/usr/app/
-      - ./frontend/node_modules/
+      - /frontend/node_modules/
     ports:
       - '3000:3000'
 
   db:
-    image: mariadb
+    build: ./backend/api/database/
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 840917
-
-  adminer:
-    image: adminer
-    restart: always
+      MYSQL_USER: sebbe
+      MYSQL_PASSWORD: asdf123
+      MYSQL_DATABASE: studentprojekt
+      MYSQL_ROOT_PASSWORD: asdf123
     ports:
-      - '8080:8080'
-
+      - '3306:3306'
+      
   api:
     build: ./backend/api/
     command: npm run dev
@@ -32,3 +31,5 @@ services:
       - '3333:3333'
     depends_on:
       - db
+    environment:
+      HOST: 'http://localhost:3333'

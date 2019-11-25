@@ -7,10 +7,10 @@ services:
       - '9000:80'
     restart: always
     depends_on:
-      - frontend_prod
+      - frontend
       - api_prod
 
-  frontend_prod:
+  frontend:
     build: ./frontend/nginx/
     ports:
       - '3000'
@@ -19,13 +19,15 @@ services:
     restart: always
 
   
-  api_prod:
+  api:
     build: ./backend/api/
     command: npm run production
     ports:
       - '3333'
     depends_on:
       - db
+    environment:
+      HOST: 'https://sebbe.dev/studentprojekt'
 
   db:
     build: ./backend/api/database/

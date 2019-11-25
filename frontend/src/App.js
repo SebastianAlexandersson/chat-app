@@ -16,6 +16,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faJsSquare } from '@fortawesome/free-brands-svg-icons'
 import { faCircle, faSquare, faSpinner, faExclamationCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons'
+import { HOST } from './utils'
 
 library.add(
   faJsSquare,
@@ -55,16 +56,16 @@ const App = () => {
         <GlobalStyle />
         <Navbar />
         <Switch>
-          <Route exact path='/studentprojekt'>
+          <Route exact path={`/${HOST}`}>
             <Home />
           </Route>
-          <Route path='/studentprojekt/about'>
+          <Route path={`${HOST}/about`}>
             <About />
           </Route>
-          <Route path='/studentprojekt/login'>
+          <Route path={`${HOST}/login`}>
             <Login />
           </Route>
-          <Route path='/studentprojekt/register'>
+          <Route path={`${HOST}/register`}>
             <Register />
           </Route>
         </Switch>

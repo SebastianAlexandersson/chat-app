@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import Message from '../Components/Message.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { API_HOST, HOST } from '../utils.js'
+import { HOST, API_HOST } from '../utils.js'
 
 const Login = ({ login, message, dispatch }) => {
   const {
@@ -36,7 +36,7 @@ const Login = ({ login, message, dispatch }) => {
     try {
       dispatch( { type: 'message-reset' })
       dispatch({ type: 'login-loading', value: true })
-      const res = await fetch(`${API_HOST}/login`, {
+      const res = await fetch(`${HOST}${API_HOST}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -22,9 +22,12 @@ const asyncWrapper = fn =>
       .catch(next)
   }
 
+const HOST = process.env.HOST
+
 module.exports = {
   StatusError,
   handleError,
   asyncWrapper,
+  HOST,
 }
 
