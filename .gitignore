@@ -1,2 +1,2 @@
 .env
-.envproduction
+docker-compose.yml

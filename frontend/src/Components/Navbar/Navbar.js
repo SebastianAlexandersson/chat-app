@@ -5,7 +5,7 @@ import NavLink from './NavLink.js'
 import NavButton from './NavButton.js'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { HOST } from '../../utils.js'
+import { URL } from '../../utils.js'
 
 const Nav = styled.nav`
   width: 100%;
@@ -18,9 +18,9 @@ const Nav = styled.nav`
 const Navbar = ({ message, dispatch }) => {
   const history = useHistory()
 
-  const userLogin = () => history.push(HOST + '/login')
+  const userLogin = () => history.push(URL + '/login')
   const userLogout = () => dispatch({ type: 'message-logout' })
-  const userRegister = () => history.push(HOST + '/register')
+  const userRegister = () => history.push(URL + '/register')
 
   return (
     <Nav>

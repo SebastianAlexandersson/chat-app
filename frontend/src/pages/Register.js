@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 import debounce, { timeout } from '../utils.js'
 import Message from '../Components/Message.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { HOST, API_HOST } from '../utils.js'
+import { HOST, URL } from '../utils.js'
 
 const Header = styled.h1`
   text-align: center;
@@ -61,7 +61,7 @@ const Register =
     e.preventDefault()
     dispatch({ type: 'register-loading', value: true})
     try {
-       const res = await fetch(`${HOST}${API_HOST}/register`, {
+       const res = await fetch(`${HOST}${URL}/api/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -75,7 +75,7 @@ const Register =
       dispatch({ type: 'message-success', msg: 'Registrering lyckades.' })
       dispatch({ type: 'register-reset' })
       dispatch({ type: 'validate-reset' })
-      debounce(1000, () => history.push(HOST + '/'))
+      debounce(1000, () => history.push(URL + '/'))
       } catch(error) {
         if(Number(error.message) === 400) {
           dispatch({ type: 'message-error', msg: 'Validering misslyckades.' })

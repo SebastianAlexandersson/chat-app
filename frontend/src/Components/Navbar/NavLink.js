@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { HOST } from '../../utils.js'
+import { URL } from '../../utils.js'
 
 const StyledNavLink = styled(Link)`
   color: #fff;
@@ -18,7 +18,7 @@ const StyledNavLink = styled(Link)`
 `
 
 const NavLink = ({ to, name }) => {
-  const href = HOST + to
+  const href = URL + to
   return (
     <StyledNavLink to={href}>{name}</StyledNavLink>
   )
