@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.js": "/studentprojekt/static/js/main.9583dbf2.chunk.js",
-    "main.js.map": "/studentprojekt/static/js/main.9583dbf2.chunk.js.map",
+    "main.js": "/studentprojekt/static/js/main.3e6debe1.chunk.js",
+    "main.js.map": "/studentprojekt/static/js/main.3e6debe1.chunk.js.map",
     "runtime-main.js": "/studentprojekt/static/js/runtime-main.e27f25c8.js",
     "runtime-main.js.map": "/studentprojekt/static/js/runtime-main.e27f25c8.js.map",
     "static/js/2.dbf96cc1.chunk.js": "/studentprojekt/static/js/2.dbf96cc1.chunk.js",
     "static/js/2.dbf96cc1.chunk.js.map": "/studentprojekt/static/js/2.dbf96cc1.chunk.js.map",
     "index.html": "/studentprojekt/index.html",
-    "precache-manifest.e143c2c41e395c515d9bfbe898bdd61b.js": "/studentprojekt/precache-manifest.e143c2c41e395c515d9bfbe898bdd61b.js",
+    "precache-manifest.72d5e91a79cf328e3a0f4920d3df1de1.js": "/studentprojekt/precache-manifest.72d5e91a79cf328e3a0f4920d3df1de1.js",
     "service-worker.js": "/studentprojekt/service-worker.js"
   },
   "entrypoints": [
     "static/js/runtime-main.e27f25c8.js",
     "static/js/2.dbf96cc1.chunk.js",
-    "static/js/main.9583dbf2.chunk.js"
+    "static/js/main.3e6debe1.chunk.js"
   ]
 }

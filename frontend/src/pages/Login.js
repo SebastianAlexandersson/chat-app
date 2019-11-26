@@ -38,7 +38,7 @@ const Login = ({ login, message, dispatch }) => {
     try {
       dispatch( { type: 'message-reset' })
       dispatch({ type: 'login-loading', value: true })
-      const res = await fetch(`${HOST}${URL}/api/login`, {
+      const res = await fetch(`${HOST}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
