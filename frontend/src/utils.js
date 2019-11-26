@@ -9,7 +9,7 @@ const debounce = (time, callback) => {
   }, time);
 }
 
-export const HOST = process.env.NODE_ENV !== 'production' ? 'http://localhost:3333' : process.env.HOST_NAME
+export const HOST = process.env.NODE_ENV !== 'production' ? 'http://localhost:3333' : 'https://sebbe.dev'
 
 export const URL = process.env.PUBLIC_URL || ''
 

@@ -17,11 +17,7 @@ services:
     depends_on:
       - api
     restart: always
-    environment:
-      HOST_NAME: ${HOST}
-      NODE_ENV: ${NODE_ENV}
 
-  
   api:
     build: ./backend/api/
     command: npm run production
