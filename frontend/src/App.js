@@ -56,7 +56,7 @@ const App = () => {
         <GlobalStyle />
         <Navbar />
         <Switch>
-          <Route exact path={`/${URL}`}>
+          <Route exact path={`${URL}/`}>
             <Home />
           </Route>
           <Route path={`${URL}/about`}>
