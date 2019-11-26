@@ -103,7 +103,7 @@ const Register =
   }
 
   const validateEmail = async (email, blur = false) => {
-    const isValid = /^\w+@iths.se$/i.test(email)
+    const isValid = /^[\w.]+@iths.se$/i.test(email)
     dispatch({ type: 'register-input', field: 'email', value: email })
     if(email.length === 0) {
       clearTimeout(timeout)
@@ -133,7 +133,7 @@ const Register =
   }
 
   const validatePassword = (pass, blur = false) => {
-    const isValid = /^([a-zA-Z0-9@*#]{8,15})$/.test(pass)
+    const isValid = /.{8,}/.test(pass)
     if(pass.length === 0) {
       clearTimeout(timeout)
       dispatch({ type: 'validate-password', isValid: null })
@@ -215,7 +215,7 @@ const Register =
             onBlur={e => validatePassword(e.currentTarget.value, true)}
           />
           {!passwordIsValid && passwordIsValid !== null &&
-          <Label htmlFor='password'>8-15 tecken</Label>}
+          <Label htmlFor='password'>Minst 8 tecken</Label>}
         </InputContainer>
         <InputContainer>
           <TextInput
@@ -233,7 +233,7 @@ const Register =
           type='submit'
           disabled={isLoading || !isFormValid }
         >
-          {isLoading ? <><FontAwesomeIcon icon={['fas', 'spinner']} /> Registrera</> : 'Registrera'}
+          {isLoading ? <><FontAwesomeIcon icon={['fas', 'spinner']} spin /> Registrera</> : 'Registrera'}
         </SubmitButton>
       </form>
     </FormContainer>

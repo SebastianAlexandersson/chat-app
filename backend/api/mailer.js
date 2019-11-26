@@ -8,8 +8,8 @@ const mailer = async (to, subject, text, html) => {
     port: 587,
     secure: false,
     auth: {
-      user: 'sebbe@sebbe.dev',
-      pass: 'sTA_84?BaSSE!'
+      user: process.env.EMAIL,
+      pass: process.env.EMAIL_PASSWORD,
     }
   });
 

@@ -13,10 +13,10 @@ const mailer = require('../mailer')
 
 
 const validateRegisterInput = input => {
-  return /^\w+@iths.se$/i.test(input.email)
+  return /^[\w.]+@iths.se$/i.test(input.email)
     && /^[a-z]+$/i.test(input.firstname)
     && /^[a-z]+$/i.test(input.lastname)
-    && /^([a-zA-Z0-9@*#]{8,15})$/.test(input.password)
+    && /.{8,}/.test(input.password)
     && input.passwordconfirm === input.password
 }
 
@@ -57,7 +57,7 @@ router.post('/', asyncWrapper(async (req, res) => {
     'fortheloveofgood@gmail.com',
     'Bekräfta registrering',
     null, 
-    `<b>Följ länken för att bekräfta din registrering: </b><a href="${HOST}/api/register/${registrationId}">https://sebbe.dev/studentprojekt/register?id=${registrationId}</a></p>`
+    `<b>Följ länken för att bekräfta din registrering: </b><a href="${HOST}/api/register/${registrationId}">${HOST}api/register?id=${registrationId}</a></p>`
     )
 
   res.status(200)
