@@ -27,15 +27,18 @@ services:
     depends_on:
       - db
     environment:
-      HOST: 'https://sebbe.dev/studentprojekt'
+      HOST: ${HOST}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DB: ${DB_DB}
+      EMAIL: ${EMAIL}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD}
 
   db:
     build: ./backend/api/database/
     restart: always
     environment:
-      MYSQL_USER: sebbe
-      MYSQL_PASSWORD: asdf123
-      MYSQL_DATABASE: studentprojekt
-      MYSQL_ROOT_PASSWORD: asdf123
-    ports:
-      - '3306:3306'
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DB}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
