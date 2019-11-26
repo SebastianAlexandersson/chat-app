@@ -61,7 +61,7 @@ const Register =
     e.preventDefault()
     dispatch({ type: 'register-loading', value: true})
     try {
-       const res = await fetch(`${HOST}${URL}/api/register`, {
+       const res = await fetch(`${HOST}/api/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

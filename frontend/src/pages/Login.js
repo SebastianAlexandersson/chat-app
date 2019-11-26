@@ -23,7 +23,7 @@ const Login = ({ login, message, dispatch }) => {
 
   const history = useHistory()
 
-  console.log(`${HOST}${URL}`)
+  console.log(`${HOST}`)
 
   useEffect(() => {
     return () => {
