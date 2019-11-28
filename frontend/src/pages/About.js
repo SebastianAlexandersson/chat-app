@@ -4,7 +4,7 @@ import Container from '../Components/Container.js'
 const About = () => {
   return (
     <Container>
-      <h1>About!</h1>
+      <h1>Om</h1>
     </Container>
   )
 }

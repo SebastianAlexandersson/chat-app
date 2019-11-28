@@ -1,0 +1,7 @@
+export const LOGIN_INPUT = 'LOGIN_INPUT'
+export const LOGIN_SUBMIT = 'LOGIN_SUBMIT'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_ERROR = 'LOGIN_ERROR'
+export const LOGIN_LOADING = 'LOGIN_LOADING'
+export const LOGIN_LOGOUT = 'LOGIN_LOGOUT'
+export const LOGIN_RESET = 'LOGIN_RESET'

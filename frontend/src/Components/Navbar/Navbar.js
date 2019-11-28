@@ -5,7 +5,8 @@ import NavLink from './NavLink.js'
 import NavButton from './NavButton.js'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { URL } from '../../utils.js'
+import { URL, HOST } from '../../utils.js'
+import { logout } from '../../store/actions/login.js'
 
 const Nav = styled.nav`
   width: 100%;
@@ -13,13 +14,22 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 2em;
 `
 
-const Navbar = ({ message, dispatch }) => {
+const Navbar = ({ login, dispatch }) => {
   const history = useHistory()
 
   const userLogin = () => history.push(URL + '/login')
-  const userLogout = () => dispatch({ type: 'message-logout' })
+  const userLogout = async () => {
+    try {
+      const res = await fetch(`${HOST}${URL}/api/logout`)
+      console.log(await res.status)
+      dispatch(logout())
+    } catch(error) {
+      console.log(error)
+    }
+  }
   const userRegister = () => history.push(URL + '/register')
 
   return (
@@ -29,17 +39,17 @@ const Navbar = ({ message, dispatch }) => {
         <NavLink to='/about' name='Om' />
       </LinkList>
       <div>
-        {!message.isLoggedIn && <NavButton onClick={userRegister}>Registrera</NavButton>}
+        {!login.isLoggedIn && <NavButton onClick={userRegister}>Registrera</NavButton>}
         <NavButton
-        onClick={message.isLoggedIn ? userLogout : userLogin}
+        onClick={login.isLoggedIn ? userLogout : userLogin}
       >
-        {message.isLoggedIn ? 'Logga ut' : 'Logga in'}
+        {login.isLoggedIn ? 'Logga ut' : 'Logga in'}
       </NavButton>
       </div>
     </Nav>
   )
 }
 
-const mapStateToProps = state => ({ message: state.message })
+const mapStateToProps = state => ({ login: state.login })
 
 export default connect(mapStateToProps)(Navbar)
