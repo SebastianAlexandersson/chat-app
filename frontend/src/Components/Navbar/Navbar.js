@@ -23,7 +23,7 @@ const Navbar = ({ login, dispatch }) => {
   const userLogin = () => history.push(URL + '/login')
   const userLogout = async () => {
     try {
-      const res = await fetch(`${HOST}${URL}/api/logout`)
+      const res = await fetch(`${HOST}/api/logout`)
       console.log(await res.status)
       dispatch(logout())
     } catch(error) {
