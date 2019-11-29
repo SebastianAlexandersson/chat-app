@@ -38,3 +38,4 @@ services:
       DB_DB: ${DB_DB}
       EMAIL: ${EMAIL}
       EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+      API_ENV: 'development'

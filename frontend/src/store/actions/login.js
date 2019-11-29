@@ -39,6 +39,7 @@ export const submitLogin = (username, password) => async dispatch => {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'include',
       body: JSON.stringify({username, password})
     })
     
