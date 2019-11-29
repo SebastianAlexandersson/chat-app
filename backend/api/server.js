@@ -9,6 +9,8 @@ const cookieParser = require('cookie-parser')
 
 app.use(cors())
 
+app.use(express.json())
+
 app.use(helmet())
 
 app.use(cookieParser())
