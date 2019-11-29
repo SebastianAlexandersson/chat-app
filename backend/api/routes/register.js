@@ -103,9 +103,11 @@ router.get('/:id', asyncWrapper(async (req, res) => {
   await conn.query('DELETE FROM register_confirm WHERE registration_id=?', [registrationId])
 
   await conn.end()
+ 
+  const redirectLink = process.env.API_ENV === 'production' ? 'https://sebbe.dev/studentprojekt/login' : 'http://dev.sebbelocal.com/login'
 
   res.status(200)
-  .send('Registrering lyckades. Skickar vidare...<script>setTimeout(() => location.assign("https://sebbe.dev/studentprojekt/login"), 2000)</script>')
+  .send(`Registrering lyckades. Skickar vidare...<script>setTimeout(() => location.assign("${redirectLink}"), 2000)</script>`)
 
 }))
 

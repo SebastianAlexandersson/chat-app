@@ -9,7 +9,7 @@ const debounce = (time, callback) => {
   }, time);
 }
 
-export const HOST = process.env.HOSTING_NAME || ''
+export const HOST = process.env.NODE_ENV === 'production' ? 'https://sebbe.dev/studentprojekt' : 'http://dev.sebbelocal.com'
 
 export const URL = process.env.PUBLIC_URL || ''
 
