@@ -16,7 +16,12 @@ router.get('/', asyncWrapper(async (req, res) =>  {
 
     const maxAge = new Date(0)
 
-    res.clearCookie('sessionid', { expires: maxAge , httpOnly: true, sameSite: 'none', secure: true, domain: null })
+    const cookieSettings = process.env.API_ENV === 'production' ?
+    { expires: maxAge , httpOnly: true, sameSite: 'none', secure: true, domain: null }
+    :
+    { expires: maxAge , httpOnly: true, domain: null }
+
+    res.clearCookie('sessionid', cookieSettings)
     res.status(200)
     .json('OK')
     

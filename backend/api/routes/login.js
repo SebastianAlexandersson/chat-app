@@ -42,7 +42,12 @@ router.post('/', asyncWrapper(async (req, res) => {
 
     const maxAge = new Date(Date.now() + 99999999999)
 
-    res.cookie('sessionid', session_id, { expires: maxAge , httpOnly: true, sameSite: 'none', secure: true, domain: null })
+    const cookieSettings = process.env.API_ENV === 'production' ?
+    { expires: maxAge , httpOnly: true, sameSite: 'none', secure: true, domain: null }
+    :
+    { expires: maxAge , httpOnly: true, domain: null }
+
+    res.cookie('sessionid', session_id, cookieSettings)
     res.status(200)
     .json({ first_name, last_name, email })
   } else {
