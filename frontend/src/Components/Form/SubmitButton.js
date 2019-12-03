@@ -7,7 +7,7 @@ const SubmitButton = styled.button`
   font-weight: bold;
   color: #fff;
   outline: none;
-  background-color: ${props => props.disabled ? 'darkblue' : 'blue'};
+  background-color: blue;
   font-size: 1em;
   border-radius: 5px;
   cursor: pointer;

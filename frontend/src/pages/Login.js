@@ -48,20 +48,22 @@ const Login = ({ login, dispatch }) => {
       />
       <form action='#' onSubmit={handleSubmit}>
         <TextField
-        name='username'
-        type='text'
-        placeholder='Användarnamn'
-        onChange={handleChange}
-        value={username}
-        valid={null}
-      />
+          name='username'
+          type='text'
+          labelText='Användarnamn'
+          onChange={handleChange}
+          value={username}
+          valid={null}
+          icon={['fas', 'user']}
+        />
       <TextField
         name='password'
         type='password'
-        placeholder='Lösenord'
+        labelText='Lösenord'
         onChange={handleChange}
         value={password}
         valid={null}
+        icon={['fas', 'key']}
       />
       <SubmitButton
         type='submit'

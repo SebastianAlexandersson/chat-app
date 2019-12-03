@@ -9,23 +9,37 @@ import Navbar from './Components/Navbar/Navbar.js'
 import Home from './pages/Home.js'
 import About from './pages/About.js'
 import Login from './pages/Login.js'
+import Projects from './pages/Projects.js'
+import UserMessages from './pages/UserMessages.js'
 import { Provider } from 'react-redux'
 import store from './store/index.js'
 import Register from './pages/Register.js'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faJsSquare } from '@fortawesome/free-brands-svg-icons'
-import { faCircle, faSquare, faSpinner, faExclamationCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import {
+  faSpinner,
+  faExclamationCircle,
+  faCheckCircle 
+} from '@fortawesome/free-solid-svg-icons'
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons'
+import {
+  faUser,
+  faCommentAlt,
+  faPencilAlt,
+  faKey,
+  faBars,
+} from '@fortawesome/free-solid-svg-icons'
 import { URL } from './utils'
 
 library.add(
-  faJsSquare,
-  faCircle,
-  faSquare,
   faEnvelope,
   faSpinner,
   faExclamationCircle,
   faCheckCircle,
+  faUser,
+  faCommentAlt,
+  faPencilAlt,
+  faKey,
+  faBars,
   )
 
 const GlobalStyle = createGlobalStyle`
@@ -67,6 +81,12 @@ const App = () => {
           </Route>
           <Route path={`${URL}/register`}>
             <Register />
+          </Route>
+          <Route path={`${URL}/projects`}>
+            <Projects />
+          </Route>
+          <Route path={`${URL}/usermessages`}>
+            <UserMessages />
           </Route>
         </Switch>
       </Router>

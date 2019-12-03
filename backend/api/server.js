@@ -15,7 +15,7 @@ app.use(helmet())
 
 app.use(cookieParser())
 
-app.use(routes)
+app.use('/api', routes)
 
 app.use((err, req, res, next) => {
   handleError(err, res)

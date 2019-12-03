@@ -30,7 +30,28 @@ export const reset = () => ({
   type: types.LOGIN_RESET
 })
 
+export const setSession = user => ({
+  type: types.LOGIN_SET_SESSION,
+  user
+})
+
+export const submitLogout = () => async dispatch => {
+
+  try {
+    const res = await fetch(`${HOST}/api/auth/logout`)
+
+    if(res.status !== 200) {
+      throw Error(res.status)
+    }
+
+    dispatch(logout())
+  } catch(error) {
+    console.log(error)
+  }
+}
+
 export const submitLogin = (username, password) => async dispatch => {
+
   dispatch(loading(true))
 
   try {
@@ -46,6 +67,9 @@ export const submitLogin = (username, password) => async dispatch => {
       throw Error(res.status)
     }
 
+    const userData = await res.json()
+
+    dispatch(setSession(userData))
     dispatch(success('Inloggning lyckades.'))
 
   } catch(err) {
@@ -55,5 +79,22 @@ export const submitLogin = (username, password) => async dispatch => {
       dispatch(error('Nånting gick fel...'))
     }
     throw Error(err)
+  }
+}
+
+export const sessionGetUserInfo = () => async dispatch => {
+
+  try {
+    const res = await fetch(`${HOST}/api/auth/userinfo`)
+
+    if(res.status !== 200) {
+      throw Error()
+    }
+
+    const userData = await res.json()
+
+    dispatch(setSession(userData))
+
+  } catch(error) {
   }
 }

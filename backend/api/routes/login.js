@@ -25,10 +25,12 @@ router.post('/', asyncWrapper(async (req, res) => {
   if(rows.length > 0) {
     await bcrypt.compare(password, rows[0].password, (err, match) => {
       if(err) {
+        conn.end()
         throw new StatusError(500, 'Server error')
       } else if(match) {
         return
       } else {
+        conn.end()
         throw new StatusError(401, 'Invalid authentication')
       }
     })
@@ -37,8 +39,10 @@ router.post('/', asyncWrapper(async (req, res) => {
 
     await conn.query('INSERT INTO user_sessions (user_id, session_id) VALUES (?,?)', [rows[0].userid, session_id])
 
-    const user = await conn.query('SELECT first_name, last_name, email FROM users WHERE userid=?', [rows[0].userid])
-    const { first_name, last_name, email } = user[0]
+    const user = await conn.query('SELECT first_name, last_name, email, userid FROM users WHERE userid=?', [rows[0].userid])
+    await conn.end()
+
+    const { first_name, last_name, email, userid } = user[0]
 
     const maxAge = new Date(Date.now() + 99999999999)
 
@@ -49,8 +53,9 @@ router.post('/', asyncWrapper(async (req, res) => {
 
     res.cookie('sessionid', session_id, cookieSettings)
     res.status(200)
-    .json({ first_name, last_name, email })
+    .json({ first_name, last_name, email, userid })
   } else {
+    await conn.end()
     throw new StatusError(401, 'Invalid authentication')
   }
 }))

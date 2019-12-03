@@ -18,6 +18,7 @@ const validateRegisterInput = input => {
     && /^[a-z]+$/i.test(input.lastname)
     && /.{8,}/.test(input.password)
     && input.passwordconfirm === input.password
+    && input.program
 }
 
 router.post('/', asyncWrapper(async (req, res) => {
@@ -33,6 +34,7 @@ router.post('/', asyncWrapper(async (req, res) => {
     firstname,
     lastname,
     password,
+    program
   } = req.body
 
   const conn = await db()
@@ -49,8 +51,8 @@ router.post('/', asyncWrapper(async (req, res) => {
 
   const registrationId = uuid()
 
-  await conn.query('INSERT INTO register_confirm (userid, first_name, last_name, email, password, expires_on, registration_id) VALUES (?,?,?,?,?,?,?)',
-    [uuid(), firstname, lastname, email, hash, expiresOn, registrationId])
+  await conn.query('INSERT INTO register_confirm (userid, first_name, last_name, email, program, password, expires_on, registration_id) VALUES (?,?,?,?,?,?,?,?)',
+    [uuid(), firstname, lastname, email, program, hash, expiresOn, registrationId])
   await conn.end()
 
   await mailer(
@@ -86,6 +88,7 @@ router.get('/:id', asyncWrapper(async (req, res) => {
     email,
     first_name,
     last_name,
+    program,
     password,
     expires_on,
   } = rows[0]
@@ -97,8 +100,8 @@ router.get('/:id', asyncWrapper(async (req, res) => {
     throw new StatusError(403, 'Expired registration id')
   }
 
-  await conn.query('INSERT INTO users (userid, first_name, last_name, email, password) VALUES (?,?,?,?,?)',
-    [userid, first_name, last_name, email, password])
+  await conn.query('INSERT INTO users (userid, first_name, last_name, email, password, program) VALUES (?,?,?,?,?,?)',
+    [userid, first_name, last_name, email, password, program])
 
   await conn.query('DELETE FROM register_confirm WHERE registration_id=?', [registrationId])
 

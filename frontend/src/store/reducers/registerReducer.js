@@ -6,6 +6,7 @@ import {
   REGISTER_VALIDATE,
   REGISTER_ERROR_EMAIL_TAKEN,
   REGISTER_RESET,
+  REGISTER_PROGRAM,
 } from '../actionTypes/register.js'
 
 const initialState = {
@@ -23,6 +24,7 @@ const initialState = {
   isError: false,
   isSuccess: false,
   msg: '',
+  program: ''
 }
 
 const registerReducer = (state = initialState, action) => {
@@ -60,6 +62,7 @@ const registerReducer = (state = initialState, action) => {
         passwordconfirmIsValid: null,
         isLoading: false,
         isSuccess: true,
+        programIsValid: false,
         msg: 'Registrering lyckades. Ett mail har skickats till din e-mailadress. Följ länken för att verifiera ditt konto.'
       }
     }
@@ -79,7 +82,9 @@ const registerReducer = (state = initialState, action) => {
         isLoading: false,
         isSuccess: false,
         isError: true,
-        msg: 'Nånting gick fel...'
+        programIsValid: false,
+        msg: 'Nånting gick fel...',
+        program: '',
       }
     }
     case REGISTER_ERROR_EMAIL_TAKEN: {
@@ -113,7 +118,16 @@ const registerReducer = (state = initialState, action) => {
         isLoading: false,
         isSuccess: false,
         isError: false,
+        program: '',
+        programIsValid: false,
         msg: '',
+      }
+    }
+    case REGISTER_PROGRAM: {
+      return {
+        ...state,
+        program: action.name,
+        programIsValid: true
       }
     }
     default:

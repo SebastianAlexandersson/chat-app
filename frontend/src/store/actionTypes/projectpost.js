@@ -1,0 +1,6 @@
+export const LOADING = 'LOADING'
+export const INPUT = 'INPUT'
+export const ERROR = 'ERROR'
+export const RESET = 'RESET'
+export const CHECKBOX = 'CHECKBOX'
+export const SUCCESS = 'SUCCESS'

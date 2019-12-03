@@ -5,7 +5,8 @@ import {
   LOGIN_ERROR,
   LOGIN_LOADING,
   LOGIN_LOGOUT,
-  LOGIN_RESET
+  LOGIN_RESET,
+  LOGIN_SET_SESSION
 } from '../actionTypes/login.js'
 
 const initialState = {
@@ -15,7 +16,11 @@ const initialState = {
   isError: false,
   isSuccess: false,
   msg: '',
-  isLoggedIn: false
+  isLoggedIn: false,
+  session_firstname: null,
+  session_lastname: null,
+  session_email: null,
+  session_userid: null,
 }
 
 const loginReducer = (state = initialState, action) => {
@@ -41,7 +46,6 @@ const loginReducer = (state = initialState, action) => {
         isError: false,
         isSuccess: true,
         msg: action.msg,
-        isLoggedIn: true
       }
     }
     case LOGIN_ERROR: {
@@ -63,7 +67,11 @@ const loginReducer = (state = initialState, action) => {
     case LOGIN_LOGOUT: {
       return {
         ...state,
-        isLoggedIn: false
+        session_email: null,
+        session_firstname: null,
+        session_lastname: null,
+        session_userid: null,
+        isLoggedIn: false,
       }
     }
     case LOGIN_RESET: {
@@ -75,6 +83,16 @@ const loginReducer = (state = initialState, action) => {
         username: '',
         password: '',
         isLoading: false
+      }
+    }
+    case LOGIN_SET_SESSION: {
+      return {
+        ...state,
+        session_email: action.user.email,
+        session_firstname: action.user.first_name,
+        session_lastname: action.user.last_name,
+        session_userid: action.user.userid,
+        isLoggedIn: true,
       }
     }
     default:

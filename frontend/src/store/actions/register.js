@@ -11,6 +11,11 @@ export const validate = field => ({
   field
 })
 
+export const program = name => ({
+  type: types.REGISTER_PROGRAM,
+  name
+})
+
 export const reset = () => ({ type: types.REGISTER_RESET })
 
 export const validateInput = field => (dispatch, getState) => {
@@ -21,19 +26,19 @@ export const validateInput = field => (dispatch, getState) => {
 
   switch(field.name) {
     case 'email':
-      const emailIsValid = /^[\w.]+@iths.se$/i.test(field.value)
+      const emailIsValid = /^[\w.]+@iths.se$/i.test(field.value) ? 1 : 0
       return dispatch({ type: types.REGISTER_VALIDATE, field: { name: 'email', isValid: emailIsValid }})
     case 'firstname':
-      const firstnameIsValid = /^[a-z]+$/i.test(field.value)
+      const firstnameIsValid = /^[a-z]+$/i.test(field.value) ? 1 : 0
       return dispatch({ type: types.REGISTER_VALIDATE, field: { name: 'firstname', isValid: firstnameIsValid }})
     case 'lastname':
-      const lastnameIsValid = /^[a-z]+$/i.test(field.value)
+      const lastnameIsValid = /^[a-z]+$/i.test(field.value) ? 1 : 0
       return dispatch({ type: types.REGISTER_VALIDATE, field: { name: 'lastname', isValid: lastnameIsValid }})
     case 'password':
-      const passwordIsValid = /.{8,}/.test(field.value)
+      const passwordIsValid = /.{8,}/.test(field.value) ? 1 : 0
       return dispatch({ type: types.REGISTER_VALIDATE, field: { name: 'password', isValid: passwordIsValid }})
     case 'passwordconfirm':
-      const passwordconfirmIsValid = field.value === getState().register.password
+      const passwordconfirmIsValid = field.value === getState().register.password ? 1 : 0
       return dispatch({ type: types.REGISTER_VALIDATE, field: { name: 'passwordconfirm', isValid: passwordconfirmIsValid }})
     default:
       return
@@ -47,7 +52,8 @@ export const submitRegistration = () => async (dispatch, getState) => {
     firstname,
     lastname,
     password,
-    passwordconfirm
+    passwordconfirm,
+    program
   } = getState().register
 
   dispatch({ type: types.REGISTER_SUBMIT })
@@ -58,7 +64,7 @@ export const submitRegistration = () => async (dispatch, getState) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email , firstname, lastname, password, passwordconfirm })
+      body: JSON.stringify({ email , firstname, lastname, password, passwordconfirm, program })
     })
 
     if(res.status !== 200) {
