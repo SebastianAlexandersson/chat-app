@@ -55,8 +55,10 @@ router.post('/', asyncWrapper(async (req, res) => {
     [uuid(), firstname, lastname, email, program, hash, expiresOn, registrationId])
   await conn.end()
 
+  const mailto = process.env.NODE_ENV === 'production' ? email : 'fortheloveofgood@gmail.com'
+
   await mailer(
-    'fortheloveofgood@gmail.com',
+    mailto,
     'Bekräfta registrering',
     null, 
     `<b>Följ länken för att bekräfta din registrering: </b><a href="${HOST}/api/register/${registrationId}">${HOST}/api/register/${registrationId}</a></p>`

@@ -5,7 +5,7 @@ import NavLink from './NavLink.js'
 import NavButton from './NavButton.js'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { URL } from '../../utils.js'
+import debounce, { URL } from '../../utils.js'
 import { submitLogout, sessionGetUserInfo } from '../../store/actions/login.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -57,7 +57,10 @@ const Navbar = ({ login, dispatch }) => {
   }, [dispatch])
 
   const userLogin = () => history.push(URL + '/login')
-  const userLogout = () => dispatch(submitLogout())
+  const userLogout = () => {
+    dispatch(submitLogout())
+    history.push(URL + '/')
+  }
   const userRegister = () => history.push(URL + '/register')
   const userMessages = () => history.push(URL + '/usermessages')
 
