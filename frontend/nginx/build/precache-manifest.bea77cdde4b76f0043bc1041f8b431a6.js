@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "669183e0d4bb77b85e9bafa43abff97a",
+    "revision": "2f060df61b430032a2f2d04358a64364",
     "url": "/studentprojekt/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/studentprojekt/static/js/2.5c4812be.chunk.js"
   },
   {
-    "revision": "8d443d37fb4eca3167f0",
-    "url": "/studentprojekt/static/js/main.ca68f2b4.chunk.js"
+    "revision": "5da35e382aa680bdf856",
+    "url": "/studentprojekt/static/js/main.d266312d.chunk.js"
   },
   {
     "revision": "32c508042d1c5c9ae75e",
