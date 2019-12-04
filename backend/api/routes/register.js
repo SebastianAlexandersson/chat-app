@@ -55,6 +55,8 @@ router.post('/', asyncWrapper(async (req, res) => {
     [uuid(), firstname, lastname, email, program, hash, expiresOn, registrationId])
   await conn.end()
 
+  console.log(email)
+
   await mailer(
     email,
     'Bekräfta registrering',
