@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { connect } from 'react-redux'
 import Message from '../Message.js'
 import * as actions from '../../store/actions/message.js'
+import Spinner from '../Spinner.js'
 
 const Container = styled.div`
   width: 50%;
@@ -24,7 +25,6 @@ const MessageForm = ({ messagestate, to, project_id, dispatch }) => {
     isLoading,
     message,
     msg,
-    from,
     message_id
   } = messagestate
 
@@ -35,16 +35,21 @@ const MessageForm = ({ messagestate, to, project_id, dispatch }) => {
 
     try {
       
+      dispatch(actions.loading(true))
       await dispatch(actions.submitMessage({ message, to }))
       dispatch(actions.success(project_id))
 
       setTimeout(() => {
         dispatch(actions.reset())
         toggleForm(false)
-      }, 2000)
+      }, 1000)
 
     } catch(err) {
       dispatch(actions.error(project_id))
+
+      setTimeout(() => {
+        dispatch(actions.error(false))
+      }, 1000)
     }
   }
 
@@ -54,12 +59,17 @@ const MessageForm = ({ messagestate, to, project_id, dispatch }) => {
 
   return (
     <Container>
-      
       <ToggleButton onClick={() => toggleForm(prevState => !prevState)} >
         <FontAwesomeIcon icon={['fas', 'bars']} className='icon' />
         Skicka medelande
       </ToggleButton>
-      {message_id === project_id}
+      {message_id === project_id &&
+        <Message
+          success={isSuccess}
+          error={isError}
+          msg={msg}
+        />
+      }
       {formIsShowing && 
         <form onSubmit={handleSubmit}>
           <TextArea
@@ -67,7 +77,11 @@ const MessageForm = ({ messagestate, to, project_id, dispatch }) => {
             onChange={handleChange}
             value={message}
           />
-          <SubmitButton>Skicka</SubmitButton>
+          <SubmitButton
+            disabled={isLoading}
+          >
+            {isLoading ? <Spinner /> : 'Skicka'}
+          </SubmitButton>
       </form>
       }
       

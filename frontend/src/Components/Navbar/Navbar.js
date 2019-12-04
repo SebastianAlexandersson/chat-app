@@ -65,7 +65,6 @@ const Navbar = ({ login, dispatch }) => {
     <Nav>
       <LinkList>
         <NavLink to='/' name='Hem' />
-        <NavLink to='/about' name='Om' />
         <NavLink to='/projects' name='Projekt' />
       </LinkList>
       <div>
@@ -75,7 +74,6 @@ const Navbar = ({ login, dispatch }) => {
         </span>
         <div className="icon-wrapper" onClick={() => userMessages()}>
           <FontAwesomeIcon icon={['fas', 'comment-alt']} className='icon' />
-          <span>5</span>
         </div>
         </>}
         {!login.isLoggedIn && <NavButton onClick={userRegister}>Registrera</NavButton>}

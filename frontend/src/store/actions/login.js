@@ -1,5 +1,6 @@
 import * as types from '../actionTypes/login.js'
 import { HOST } from '../../utils.js'
+import Cookies from 'js-cookie'
 
 export const input = field => ({
   type: types.LOGIN_INPUT,
@@ -45,6 +46,9 @@ export const submitLogout = () => async dispatch => {
     }
 
     dispatch(logout())
+
+    Cookies.remove('isloggedin')
+    
   } catch(error) {
     console.log(error)
   }
@@ -72,6 +76,8 @@ export const submitLogin = (username, password) => async dispatch => {
     dispatch(setSession(userData))
     dispatch(success('Inloggning lyckades.'))
 
+    Cookies.set('isloggedin', true, { expires: 365 })
+
   } catch(err) {
     if(Number(err.message) === 401) {
       dispatch(error('Felaktigt användarnamn eller lösenord.'))
@@ -83,6 +89,12 @@ export const submitLogin = (username, password) => async dispatch => {
 }
 
 export const sessionGetUserInfo = () => async dispatch => {
+
+  console.log(Cookies.get())
+
+  if (!Cookies.get('isloggedin')) {
+    return
+  }
 
   try {
     const res = await fetch(`${HOST}/api/auth/userinfo`)

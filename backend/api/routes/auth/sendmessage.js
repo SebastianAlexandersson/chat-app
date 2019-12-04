@@ -14,16 +14,13 @@ router.post('/', asyncWrapper(async (req, res) => {
     throw new StatusError(400, 'Bad input')
   }
 
-  try {
+  const conn = await db()
+  await conn.query('INSERT INTO messages (message_body, from_user, to_user) VALUES (?,?,?)', [message, from, to])
+  await conn.end()
 
-    const conn = await db()
-    await conn.query('INSERT INTO messages (message_body, from_user, to_user) VALUES (?,?,?)', [message, from, to])
+  res.status(200)
+  .json('OK')
 
-  } catch(err) {
-    // throw new StatusError(500, 'Something went wrong..')
-    res.status(500).send()
-    console.log(err)
-  }
 }))
 
 module.exports = router

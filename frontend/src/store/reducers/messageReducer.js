@@ -21,7 +21,7 @@ const messageReducer = (state = initialState, action) => {
     case types.MESSAGE_LOADING: {
       return {
         ...state,
-        isLoading: action.state
+        isLoading: action.isLoading
       }
     }
     case types.MESSAGE_SUCCESS: {
@@ -29,7 +29,6 @@ const messageReducer = (state = initialState, action) => {
         ...state,
         isSuccess: true,
         isError: false,
-        isLoading: false,
         msg: 'Medelandet skickades',
         message_id: action.message_id,
       }

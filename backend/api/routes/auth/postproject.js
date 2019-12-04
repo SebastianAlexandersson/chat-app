@@ -28,6 +28,7 @@ router.post('/', asyncWrapper(async (req, res) => {
     'INSERT INTO projects (headline, text_body, tags, project_id, author_id) VALUES (?,?,?,?,?)',
     [headline, textBody, tagsString, uuid(), userId]
     )
+
   await conn.end()
 
   res.status(200)

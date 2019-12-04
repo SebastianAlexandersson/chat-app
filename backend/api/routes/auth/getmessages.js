@@ -14,11 +14,6 @@ router.get('/', asyncWrapper(async (req, res) => {
     + 'FROM messages, users WHERE messages.to_user=? AND messages.from_user = users.userid', 
     [user[0].user_id])
 
-
-  const from_user = await conn.query('SELECT first_name, last_name, email FROM users WHERE userid =?', [user[0].user_id])
-
-  const sendername = from_user[0].first_name + ' ' + from_user[0].last_name
-
   await conn.end()
   if(messages.length === 0) {
     await conn.end()

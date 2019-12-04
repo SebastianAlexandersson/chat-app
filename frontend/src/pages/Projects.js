@@ -43,7 +43,7 @@ const Projects = ({ projects, dispatch }) => {
             id={ project.userid }
             key={ project.project_id }
             date={ project.created_on }
-            projetct_id={ project.project_id }
+            project_id={ project.project_id }
           />
         )
       })}

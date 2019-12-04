@@ -1,13 +1,15 @@
 import * as types from '../actionTypes/message.js'
 import { HOST } from '../../utils.js'
 
-export const input = message => ({
+export const input = (message, message_id) => ({
   type: types.MESSAGE_INPUT,
-  message
+  message,
+  message_id
 })
 
-export const error = () => ({
-  type: types.MESSAGE_ERROR
+export const error = message_id => ({
+  type: types.MESSAGE_ERROR,
+  message_id
 })
 
 export const loading = state => ({
@@ -15,12 +17,13 @@ export const loading = state => ({
   isLoading: state
 })
 
-export const success = () => ({
-  type: types.MESSAGE_SUCCESS
+export const success = message_id => ({
+  type: types.MESSAGE_SUCCESS,
+  message_id
 })
 
 export const reset = () => ({
-  type: types.MESSAGE_RESET
+  type: types.MESSAGE_RESET,
 })
 
 export const setMessages = messages => ({
@@ -46,9 +49,9 @@ export const submitMessage = (message) => (dispatch, getState) => {
 
       if(res.status !== 200) {
         throw Error(res.status)
-      } else {
-        resolve()
       }
+
+      resolve()
 
     } catch(err) {
       reject(err)

@@ -5,5 +5,6 @@ first_name TEXT,
 last_name TEXT,
 password TEXT,
 expires_on BIGINT,
-registration_id TEXT
+registration_id TEXT,
+program TEXT,
 ) ENGINE=INNODB;

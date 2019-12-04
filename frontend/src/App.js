@@ -4,16 +4,19 @@ import {
   Switch,
   Route,
 } from "react-router-dom"
+
 import { createGlobalStyle } from 'styled-components'
+
 import Navbar from './Components/Navbar/Navbar.js'
 import Home from './pages/Home.js'
-import About from './pages/About.js'
 import Login from './pages/Login.js'
 import Projects from './pages/Projects.js'
 import UserMessages from './pages/UserMessages.js'
+import Register from './pages/Register.js'
+
 import { Provider } from 'react-redux'
 import store from './store/index.js'
-import Register from './pages/Register.js'
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faSpinner,
@@ -72,9 +75,6 @@ const App = () => {
         <Switch>
           <Route exact path={`${URL}/`}>
             <Home />
-          </Route>
-          <Route path={`${URL}/about`}>
-            <About />
           </Route>
           <Route path={`${URL}/login`}>
             <Login />
