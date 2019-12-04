@@ -59,7 +59,7 @@ router.post('/', asyncWrapper(async (req, res) => {
     'fortheloveofgood@gmail.com',
     'Bekräfta registrering',
     null, 
-    `<b>Följ länken för att bekräfta din registrering: </b><a href="${HOST}/api/register/${registrationId}">${HOST}/api/register?id=${registrationId}</a></p>`
+    `<b>Följ länken för att bekräfta din registrering: </b><a href="${HOST}/api/register/${registrationId}">${HOST}/api/register/${registrationId}</a></p>`
     )
 
   res.status(200)
