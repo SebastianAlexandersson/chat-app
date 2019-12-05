@@ -58,7 +58,7 @@ router.post('/', asyncWrapper(async (req, res) => {
   console.log(email)
 
   await mailer(
-    'fortheloveofgood@gmail.com',
+    email,
     'Bekräfta registrering',
     null, 
     `<b>Följ länken för att bekräfta din registrering: </b><a href="${HOST}/api/register/${registrationId}">${HOST}/api/register/${registrationId}</a></p>`
