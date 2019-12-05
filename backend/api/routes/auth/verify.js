@@ -23,7 +23,6 @@ const verify = async (req, res, next) => {
 
     next()
   } catch(error) {
-    await conn.end()
     next(error)
   }
   

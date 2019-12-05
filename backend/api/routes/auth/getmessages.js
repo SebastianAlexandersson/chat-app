@@ -16,7 +16,6 @@ router.get('/', asyncWrapper(async (req, res) => {
 
   await conn.end()
   if(messages.length === 0) {
-    await conn.end()
     throw new StatusError(400, 'No messages')
   }
 
