@@ -18,7 +18,7 @@
   "background_color": "#0000ff",
   "start_url": "/studentprojekt",
   "serviceworker": {
-    "src": "./sw.js",
+    "src": "sw.js",
     "scope": "/studentprojekt"
   }
 }
