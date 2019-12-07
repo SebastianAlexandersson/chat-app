@@ -18,16 +18,12 @@ if ("function" === typeof importScripts) {
     // All assets under build/ and 5MB sizes are precached.
     workbox.precaching.precacheAndRoute([
   {
-    "url": "icons/favicon-16x16.png",
-    "revision": "d53b9a0328904e54717b1e4251f2a37e"
+    "url": "icons/icon-256.png",
+    "revision": "5b7454857f34df61164ed08b0e82b702"
   },
   {
-    "url": "icons/favicon-24x24.png",
-    "revision": "6c08e04d175456715620bec5000dae67"
-  },
-  {
-    "url": "icons/favicon-32x32.png",
-    "revision": "a42ab5fa43d602e0db12afdeab6f4d5b"
+    "url": "icons/icon-512.png",
+    "revision": "d8921a0dd2f4a6f1ad6f861399940df6"
   },
   {
     "url": "index.html",
