@@ -16,9 +16,9 @@
   "display": "standalone",
   "theme_color": "#0000ff",
   "background_color": "#0000ff",
-  "start_url": "/",
+  "start_url": "/studentprojekt",
   "serviceworker": {
     "src": "./sw.js",
-    "scope": "./"
+    "scope": "/studentprojekt"
   }
 }
