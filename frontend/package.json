@@ -73,7 +73,9 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "rm -rf ./nginx/build && node scripts/build.js",
+    "build-sw": "node ./src/sw-build.js",
+    "clean-cra-sw": "rm -f build/precache-manifest.*.js && rm -f build/service-worker.js",
+    "build": "rm -rf ./nginx/build && node scripts/build.js && npm run build-sw && npm run clean-cra-sw",
     "postbuild": "mv build ./nginx/",
     "test": "node scripts/test.js"
   },
@@ -144,5 +146,8 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "workbox-build": "^4.3.1"
   }
 }
