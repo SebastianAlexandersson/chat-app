@@ -17,7 +17,7 @@ var urlsToCache = [
   '/favicon.ico'
 ];
 
-self.addEventListener('install', function(event) {
+window.self.addEventListener('install', function(event) {
   // Perform install steps
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -28,7 +28,7 @@ self.addEventListener('install', function(event) {
   );
 });
 
-self.addEventListener('fetch', function(event) {
+window.self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request)
       .then(function(response) {
