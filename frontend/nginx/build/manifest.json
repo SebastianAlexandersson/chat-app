@@ -3,12 +3,12 @@
   "name": "Studentprojekt",
   "icons": [
     {
-      "src": "studentprojekt/icon-512.png",
+      "src": "./icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "studentprojekt/icons/icon-256.png",
+      "src": "./icons/icon-256.png",
       "sizes": "256x256",
       "type": "image/png"
     }
@@ -16,5 +16,8 @@
   "display": "standalone",
   "theme_color": "#0000ff",
   "background_color": "#0000ff",
-  "start_url": "/"
+  "start_url": "/",
+  "serviceworker": {
+    "src": "sw.js"
+  }
 }
